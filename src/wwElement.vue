@@ -34,9 +34,14 @@ export default {
             () => form,
             () => {
                 console.log('[ww-label] Form detected:', form);
+                console.log('[ww-label] Form inputs:', form?.inputs?.value);
                 emit('update:sidepanel-content', {
                     path: 'form',
-                    value: { uid: form?.uid, name: form?.name?.value },
+                    value: { 
+                        uid: form?.uid, 
+                        name: form?.name?.value,
+                        inputs: form?.inputs?.value || []
+                    },
                     forced: true,
                 });
             },
