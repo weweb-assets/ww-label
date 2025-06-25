@@ -19,6 +19,13 @@ export default {
         ["required", "requiredSymbol"],
     ],
     properties: {
+        children: {
+            label: { en: 'Label content' },
+            defaultValue: [],
+            options: {
+                text: { en: 'Label text and elements' }
+            }
+        },
         form: {
             editorOnly: true,
             hidden: true,
