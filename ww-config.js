@@ -56,13 +56,8 @@ export default {
             bindable: true,
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
-                console.log('[ww-label] htmlFor options called');
-                console.log('[ww-label] sidePanelContent:', sidePanelContent);
-                console.log('[ww-label] sidePanelContent.form:', sidePanelContent?.form);
-                
                 // If not in a form, only show custom option
                 if (!sidePanelContent?.form?.uid) {
-                    console.log('[ww-label] Not in a form - showing basic options');
                     return {
                         options: [
                             { label: "None", value: null },
@@ -71,15 +66,11 @@ export default {
                     };
                 }
 
-                console.log('[ww-label] Form UID found:', sidePanelContent.form.uid);
-                console.log('[ww-label] Form inputs:', sidePanelContent.form?.inputs);
-
                 // If in a form but no inputs available yet
                 if (
                     !sidePanelContent?.form?.inputs ||
                     sidePanelContent.form.inputs.length === 0
                 ) {
-                    console.log('[ww-label] In form but no inputs available');
                     return {
                         options: [
                             { label: "None (children input)", value: null },
@@ -87,9 +78,6 @@ export default {
                         ],
                     };
                 }
-
-                console.log('[ww-label] Found inputs:', sidePanelContent.form.inputs.length);
-                console.log('[ww-label] Input details:', JSON.stringify(sidePanelContent.form.inputs, null, 2));
 
                 // If in a form with inputs
                 const options = [
@@ -101,7 +89,6 @@ export default {
                     { label: "Custom", value: "custom" },
                 ];
 
-                console.log('[ww-label] Final options:', JSON.stringify(options, null, 2));
                 return { options };
             },
             /* wwEditor:end */
