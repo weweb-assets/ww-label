@@ -4,10 +4,10 @@ export default {
     },
     editor: {
         label: {
-            en: "Form Label",
-            fr: "Label de formulaire",
+            en: "Label",
+            fr: "Label",
         },
-        icon: "fas fa-tag",
+        icon: "tag",
     },
     options: {
         linkable: false,
@@ -50,7 +50,7 @@ export default {
                 en: "For",
                 fr: "Pour",
             },
-            type: "Select",
+            type: "TextSelect",
             section: "settings",
             defaultValue: null,
             bindable: true,

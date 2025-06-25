@@ -1,8 +1,8 @@
 {
-    "name": "ww-form-label",
+    "name": "ww-label",
     "repository": {
         "type": "git",
-        "url": "https://github.com/weweb-assets/ww-form-label"
+        "url": "https://github.com/weweb-assets/ww-label"
     },
     "version": "1.0.0",
     "license": "MIT",
