@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, inject, watch } from 'vue';
 
 export default {
     props: {
@@ -24,7 +24,25 @@ export default {
         /* wwEditor:end */
     },
     emits: ['update:content', 'update:sidepanel-content'],
-    setup(props) {
+    setup(props, { emit }) {
+        // Inject form info if available
+        const form = inject('_wwForm:info', null);
+        
+        // Update sidepanel content with form info when in editor
+        /* wwEditor:start */
+        watch(
+            () => form,
+            () => {
+                console.log('[ww-label] Form detected:', form);
+                emit('update:sidepanel-content', {
+                    path: 'form',
+                    value: { uid: form?.uid, name: form?.name?.value },
+                    forced: true,
+                });
+            },
+            { immediate: true, deep: true }
+        );
+        /* wwEditor:end */
         // Compute the actual 'for' attribute value
         const computedFor = computed(() => {
             if (!props.content.htmlFor) {
