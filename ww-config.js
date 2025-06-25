@@ -19,14 +19,6 @@ export default {
         ["required", "requiredSymbol"],
     ],
     properties: {
-        children: {
-            label: { en: 'Label content' },
-            type: 'Repeat',
-            defaultValue: [],
-            options: {
-                text: { en: 'Label text and elements' }
-            }
-        },
         form: {
             editorOnly: true,
             hidden: true,
