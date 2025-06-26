@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { computed, inject, watch } from 'vue';
+import { computed, inject, watch, provide, ref } from 'vue';
+import { useLabelChild } from './composables/useLabelChild';
 
 export default {
     props: {
@@ -25,13 +26,22 @@ export default {
     },
     emits: ['update:content', 'update:sidepanel-content'],
     setup(props, { emit }) {
-        // Inject form info if available
         const form = inject('_wwForm:info', null);
+        const hasChildInput = ref(false);
         
-        // Update sidepanel content with form info when in editor
+        provide('_wwLabel:registerInput', () => {
+            hasChildInput.value = true;
+        });
+        
+        provide('_wwLabel:unregisterInput', () => {
+            hasChildInput.value = false;
+        });
+        
+        provide('_wwLabel:useLabelChild', useLabelChild);
+        
         /* wwEditor:start */
         watch(
-            () => form,
+            () => [form, hasChildInput.value],
             () => {
                 emit('update:sidepanel-content', {
                     path: 'form',
@@ -40,6 +50,11 @@ export default {
                         name: form?.name?.value,
                         inputs: form?.inputs?.value || []
                     },
+                    forced: true,
+                });
+                emit('update:sidepanel-content', {
+                    path: 'hasChildInput',
+                    value: hasChildInput.value,
                     forced: true,
                 });
             },
