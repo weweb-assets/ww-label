@@ -28,20 +28,27 @@ export default {
     setup(props, { emit }) {
         const form = inject('_wwForm:info', null);
         const hasChildInput = ref(false);
+        const childInputs = ref(new Set());
         
-        provide('_wwLabel:registerInput', () => {
+        provide('_wwLabel:registerInput', (inputInfo) => {
             hasChildInput.value = true;
+            if (inputInfo?.name) {
+                childInputs.value.add(inputInfo.name);
+            }
         });
         
-        provide('_wwLabel:unregisterInput', () => {
-            hasChildInput.value = false;
+        provide('_wwLabel:unregisterInput', (inputInfo) => {
+            if (inputInfo?.name) {
+                childInputs.value.delete(inputInfo.name);
+            }
+            hasChildInput.value = childInputs.value.size > 0;
         });
         
         provide('_wwLabel:useLabelChild', useLabelChild);
         
         /* wwEditor:start */
         watch(
-            () => [form, hasChildInput.value],
+            () => [form, hasChildInput.value, [...childInputs.value]],
             () => {
                 emit('update:sidepanel-content', {
                     path: 'labelState',
@@ -51,7 +58,8 @@ export default {
                             name: form?.name?.value,
                             inputs: form?.inputs?.value || []
                         },
-                        hasChildInput: hasChildInput.value
+                        hasChildInput: hasChildInput.value,
+                        childInputNames: [...childInputs.value]
                     },
                     forced: true,
                 });

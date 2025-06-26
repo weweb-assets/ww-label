@@ -28,20 +28,37 @@ export default {
             hidden: true,
             defaultValue: {
                 form: null,
-                hasChildInput: false
+                hasChildInput: false,
+                childInputNames: []
             },
         },
         formInfobox: {
             type: "InfoBox",
             section: "settings",
-            options: (_, sidePanelContent) => ({
-                variant: sidePanelContent.labelState?.form?.name ? "success" : "warning",
-                icon: "tag",
-                title: sidePanelContent.labelState?.form?.name || "Not in a form",
-                content:
-                    !sidePanelContent.labelState?.form?.name &&
-                    "Place this label inside a form container to access form inputs.",
-            }),
+            options: (_, sidePanelContent) => {
+                const hasForm = sidePanelContent.labelState?.form?.name;
+                const hasChildInput = sidePanelContent.labelState?.hasChildInput;
+                const childInputNames = sidePanelContent.labelState?.childInputNames || [];
+                
+                let content = "";
+                if (!hasForm) {
+                    content = "Place this label inside a form container to access form inputs.";
+                } else if (hasChildInput) {
+                    if (childInputNames.length > 0) {
+                        const inputsList = childInputNames.join(", ");
+                        content = `Input auto-detected: ${inputsList}`;
+                    } else {
+                        content = "Input auto-detected inside this label.";
+                    }
+                }
+                
+                return {
+                    variant: hasForm ? "success" : "warning",
+                    icon: "tag",
+                    title: sidePanelContent.labelState?.form?.name || "Not in a form",
+                    content: content,
+                };
+            },
             hidden: (_, sidePanelContent) => !sidePanelContent.labelState?.form?.uid,
         },
         htmlFor: {
