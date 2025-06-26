@@ -35,7 +35,7 @@ export default {
             type: "InfoBox",
             section: "settings",
             options: (_, sidePanelContent) => ({
-                variant: sidePanelContent.labelState?.form?.name ? "info" : "warning",
+                variant: sidePanelContent.labelState?.form?.name ? "success" : "warning",
                 icon: "tag",
                 title: sidePanelContent.labelState?.form?.name || "Not in a form",
                 content:
