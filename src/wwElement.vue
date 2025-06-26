@@ -72,16 +72,13 @@ export default {
             () => hasChildInput.value,
             (newValue) => {
                 console.log('ww-label: Emitting hasChildInput update:', newValue);
-                // Use nextTick to ensure this runs after all other updates
-                nextTick(() => {
-                    emit('update:sidepanel-content', {
-                        path: 'hasChildInput',
-                        value: newValue,
-                        forced: true,
-                    });
+                emit('update:sidepanel-content', {
+                    path: 'hasChildInput',
+                    value: newValue,
+                    forced: true,
                 });
             },
-            { immediate: true }
+            { immediate: true, flush: 'sync' }
         );
         /* wwEditor:end */
         const computedFor = computed(() => {
