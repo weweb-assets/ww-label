@@ -56,8 +56,8 @@ export default {
             hidden: (content, sidePanelContent) => {
                 console.log('htmlFor hidden check - sidePanelContent:', JSON.stringify(sidePanelContent || {}));
                 console.log('htmlFor hidden check - labelState:', sidePanelContent?.labelState);
-                console.log('htmlFor hidden check - hasChildInput:', sidePanelContent?.labelState?.hasChildInput);
-                return !!sidePanelContent?.labelState?.hasChildInput;
+                console.log('htmlFor hidden check - hasChildInput:', sidePanelContent?.labelState?.label?.hasChildInput);
+                return !!sidePanelContent?.labelState?.label?.hasChildInput;
             },
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
