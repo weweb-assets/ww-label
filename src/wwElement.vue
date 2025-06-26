@@ -103,12 +103,7 @@ export default {
     });
 
     const handleClick = (event) => {
-      console.log('[Label] Click event on label');
-      console.log('[Label] computedFor:', computedFor.value);
-      console.log('[Label] hasChildInput:', hasChildInput.value);
-      console.log('[Label] Event target:', event.target);
-      console.log('[Label] Event currentTarget:', event.currentTarget);
-      console.log('[Label] Event defaultPrevented:', event.defaultPrevented);
+      // Label click handling if needed in the future
     };
 
     return {
