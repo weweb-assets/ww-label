@@ -3,6 +3,7 @@
     :for="computedFor"
     class="ww-form-label"
     v-bind="wwElementState.props.attributes"
+    @click="handleClick"
     @mousedown="
       (event) => {
         // prevent text selection when double clicking label
@@ -101,8 +102,18 @@ export default {
       return props.content.htmlFor;
     });
 
+    const handleClick = (event) => {
+      console.log('[Label] Click event on label');
+      console.log('[Label] computedFor:', computedFor.value);
+      console.log('[Label] hasChildInput:', hasChildInput.value);
+      console.log('[Label] Event target:', event.target);
+      console.log('[Label] Event currentTarget:', event.currentTarget);
+      console.log('[Label] Event defaultPrevented:', event.defaultPrevented);
+    };
+
     return {
       computedFor,
+      handleClick,
     };
   },
 };
