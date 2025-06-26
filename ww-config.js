@@ -53,8 +53,9 @@ export default {
             propertyHelp: {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
-            hidden: (_, sidePanelContent) => {
+            hidden: (content, sidePanelContent) => {
                 console.log('htmlFor hidden check:', {
+                    contentUID: content?.uid,
                     sidePanelContent: JSON.parse(JSON.stringify(sidePanelContent || {})),
                     hasChildInput: sidePanelContent?.hasChildInput,
                     result: !!sidePanelContent?.hasChildInput
