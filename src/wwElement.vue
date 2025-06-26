@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { computed, inject, watch, provide, ref } from 'vue';
+import { computed, inject, watch, provide, ref, nextTick } from 'vue';
 import { useLabelChild } from './composables/useLabelChild';
 
 export default {
@@ -72,10 +72,13 @@ export default {
             () => hasChildInput.value,
             (newValue) => {
                 console.log('ww-label: Emitting hasChildInput update:', newValue);
-                emit('update:sidepanel-content', {
-                    path: 'hasChildInput',
-                    value: newValue,
-                    forced: true,
+                // Use nextTick to ensure this runs after all other updates
+                nextTick(() => {
+                    emit('update:sidepanel-content', {
+                        path: 'hasChildInput',
+                        value: newValue,
+                        forced: true,
+                    });
                 });
             },
             { immediate: true }

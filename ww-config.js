@@ -55,6 +55,7 @@ export default {
             },
             hidden: (_, sidePanelContent) => {
                 console.log('htmlFor hidden check:', {
+                    sidePanelContent: sidePanelContent,
                     hasChildInput: sidePanelContent?.hasChildInput,
                     result: !!sidePanelContent?.hasChildInput
                 });
