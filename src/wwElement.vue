@@ -42,14 +42,18 @@ export default {
         
         /* wwEditor:start */
         watch(
-            () => form,
+            () => [form, hasChildInput.value],
             () => {
+                console.log('ww-label: Emitting complete sidepanel update with hasChildInput:', hasChildInput.value);
                 emit('update:sidepanel-content', {
-                    path: 'form',
-                    value: { 
-                        uid: form?.uid, 
-                        name: form?.name?.value,
-                        inputs: form?.inputs?.value || []
+                    path: '',
+                    value: {
+                        form: { 
+                            uid: form?.uid, 
+                            name: form?.name?.value,
+                            inputs: form?.inputs?.value || []
+                        },
+                        hasChildInput: hasChildInput.value
                     },
                     forced: true,
                 });
@@ -66,19 +70,6 @@ export default {
                 }
             },
             { immediate: true, deep: true }
-        );
-        
-        watch(
-            () => hasChildInput.value,
-            (newValue) => {
-                console.log('ww-label: Emitting hasChildInput update:', newValue);
-                emit('update:sidepanel-content', {
-                    path: 'hasChildInput',
-                    value: newValue,
-                    forced: true,
-                });
-            },
-            { immediate: true, flush: 'sync' }
         );
         /* wwEditor:end */
         const computedFor = computed(() => {
