@@ -30,12 +30,10 @@ export default {
         const hasChildInput = ref(false);
         
         provide('_wwLabel:registerInput', () => {
-            console.log('ww-label: Input registered');
             hasChildInput.value = true;
         });
         
         provide('_wwLabel:unregisterInput', () => {
-            console.log('ww-label: Input unregistered');
             hasChildInput.value = false;
         });
         
@@ -60,7 +58,6 @@ export default {
                     const inputExists = availableInputs.some(input => input.name === props.content.htmlFor);
                     
                     if (!inputExists) {
-                        console.log('ww-label: Selected input no longer exists, resetting htmlFor to null');
                         emit('update:content', {
                             htmlFor: null
                         });
@@ -73,7 +70,6 @@ export default {
         watch(
             () => hasChildInput.value,
             (newValue) => {
-                console.log('ww-label: Updating sidepanel hasChildInput:', newValue);
                 emit('update:sidepanel-content', {
                     path: 'hasChildInput',
                     value: newValue,

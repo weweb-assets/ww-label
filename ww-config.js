@@ -21,9 +21,7 @@ export default {
         children: {
             label: { en: 'Label content' },
             defaultValue: [],
-            options: {
-                text: { en: 'Label text and elements' }
-            }
+            hidden: true,
         },
         form: {
             editorOnly: true,
@@ -56,8 +54,6 @@ export default {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
             hidden: (_, sidePanelContent) => {
-                console.log('ww-label config: sidePanelContent:', sidePanelContent);
-                console.log('ww-label config: hasChildInput in sidePanelContent:', sidePanelContent?.hasChildInput);
                 return !!sidePanelContent?.hasChildInput;
             },
             /* wwEditor:start */
