@@ -16,7 +16,6 @@ export default {
     customSettingsPropertiesOrder: [
         "formInfobox",
         ["htmlFor", "customHtmlFor"],
-        ["required", "requiredSymbol"],
     ],
     properties: {
         children: {
@@ -56,7 +55,10 @@ export default {
             propertyHelp: {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
-            hidden: (_, sidePanelContent) => sidePanelContent.hasChildInput,
+            hidden: (_, sidePanelContent) => {
+                console.log('ww-label config: hasChildInput in sidePanelContent:', sidePanelContent.hasChildInput);
+                return sidePanelContent.hasChildInput;
+            },
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
                 // If not in a form, only show custom option
@@ -105,31 +107,6 @@ export default {
             defaultValue: "",
             bindable: true,
             hidden: (content) => content.htmlFor !== "custom",
-        },
-        required: {
-            label: {
-                en: "Required indicator",
-                fr: "Indicateur obligatoire",
-            },
-            type: "OnOff",
-            section: "settings",
-            defaultValue: false,
-            bindable: true,
-            responsive: true,
-            states: true,
-        },
-        requiredSymbol: {
-            label: {
-                en: "Required symbol",
-                fr: "Symbole obligatoire",
-            },
-            type: "Text",
-            section: "settings",
-            defaultValue: "*",
-            bindable: true,
-            responsive: true,
-            states: true,
-            hidden: (content) => !content.required,
         },
     },
 };

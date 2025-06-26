@@ -30,10 +30,12 @@ export default {
         const hasChildInput = ref(false);
         
         provide('_wwLabel:registerInput', () => {
+            console.log('ww-label: Input registered');
             hasChildInput.value = true;
         });
         
         provide('_wwLabel:unregisterInput', () => {
+            console.log('ww-label: Input unregistered');
             hasChildInput.value = false;
         });
         
@@ -52,6 +54,7 @@ export default {
                     },
                     forced: true,
                 });
+                console.log('ww-label: Updating sidepanel hasChildInput:', hasChildInput.value);
                 emit('update:sidepanel-content', {
                     path: 'hasChildInput',
                     value: hasChildInput.value,
