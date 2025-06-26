@@ -49,14 +49,9 @@ export default {
                     if (childInputNames.length > 1) {
                         // Multiple inputs detected - show warning
                         variant = "warning";
-                        const inputsList = childInputNames.join(", ");
-                        content = `Multiple inputs detected: ${inputsList}. Labels should contain only one input for proper accessibility.`;
-                    } else if (childInputNames.length === 1) {
-                        // Single input - all good
-                        variant = "success";
-                        content = `Input auto-detected: ${childInputNames[0]}`;
+                        content = "Multiple inputs detected. Labels should contain only one input for proper accessibility.";
                     } else {
-                        // Has child input but no name
+                        // Single input - all good
                         variant = "success";
                         content = "Input auto-detected inside this label.";
                     }
