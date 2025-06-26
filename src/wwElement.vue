@@ -54,6 +54,18 @@ export default {
                     },
                     forced: true,
                 });
+                
+                if (props.content.htmlFor && props.content.htmlFor !== 'custom') {
+                    const availableInputs = form?.inputs?.value || [];
+                    const inputExists = availableInputs.some(input => input.name === props.content.htmlFor);
+                    
+                    if (!inputExists) {
+                        console.log('ww-label: Selected input no longer exists, resetting htmlFor to null');
+                        emit('update:content', {
+                            htmlFor: null
+                        });
+                    }
+                }
             },
             { immediate: true, deep: true }
         );
