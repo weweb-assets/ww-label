@@ -45,19 +45,17 @@ export default {
         watch(
             () => [form, hasChildInput.value],
             () => {
+                console.log('ww-label: Updating sidepanel - form and hasChildInput:', hasChildInput.value);
                 emit('update:sidepanel-content', {
-                    path: 'form',
-                    value: { 
-                        uid: form?.uid, 
-                        name: form?.name?.value,
-                        inputs: form?.inputs?.value || []
+                    path: '',
+                    value: {
+                        form: { 
+                            uid: form?.uid, 
+                            name: form?.name?.value,
+                            inputs: form?.inputs?.value || []
+                        },
+                        hasChildInput: hasChildInput.value
                     },
-                    forced: true,
-                });
-                console.log('ww-label: Updating sidepanel hasChildInput:', hasChildInput.value);
-                emit('update:sidepanel-content', {
-                    path: 'hasChildInput',
-                    value: hasChildInput.value,
                     forced: true,
                 });
             },
