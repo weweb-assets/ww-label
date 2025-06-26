@@ -46,7 +46,6 @@ export default {
             { immediate: true, deep: true }
         );
         /* wwEditor:end */
-        // Compute the actual 'for' attribute value
         const computedFor = computed(() => {
             if (!props.content.htmlFor) {
                 return null;
@@ -54,6 +53,13 @@ export default {
             
             if (props.content.htmlFor === 'custom') {
                 return props.content.customHtmlFor || null;
+            }
+            
+            if (form?.inputs?.value) {
+                const input = form.inputs.value.find(input => input.name === props.content.htmlFor);
+                if (input) {
+                    return input.id;
+                }
             }
             
             return props.content.htmlFor;

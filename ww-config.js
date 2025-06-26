@@ -78,12 +78,11 @@ export default {
                     };
                 }
 
-                // If in a form with inputs
                 const options = [
                     { label: "None (children input)", value: null },
                     ...sidePanelContent.form.inputs.map((input) => ({
-                        label: input.label || input.value,
-                        value: input.value,
+                        label: input.label || input.name,
+                        value: input.name,
                     })),
                     { label: "Custom", value: "custom" },
                 ];
