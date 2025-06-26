@@ -23,10 +23,13 @@ export default {
             defaultValue: [],
             hidden: true,
         },
-        form: {
+        labelState: {
             editorOnly: true,
             hidden: true,
-            defaultValue: false,
+            defaultValue: {
+                form: null,
+                hasChildInput: false
+            },
         },
         formInfobox: {
             type: "InfoBox",
