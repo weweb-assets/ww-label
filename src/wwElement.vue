@@ -53,9 +53,7 @@ export default {
                             name: form?.name?.value,
                             inputs: form?.inputs?.value || []
                         },
-                        label: {
-                            hasChildInput: hasChildInput.value
-                        }
+                        hasChildInput: hasChildInput.value
                     },
                     forced: true,
                 });
