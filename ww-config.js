@@ -32,14 +32,14 @@ export default {
             type: "InfoBox",
             section: "settings",
             options: (_, sidePanelContent) => ({
-                variant: sidePanelContent.form?.name ? "info" : "warning",
+                variant: sidePanelContent.labelState?.form?.name ? "info" : "warning",
                 icon: "tag",
-                title: sidePanelContent.form?.name || "Not in a form",
+                title: sidePanelContent.labelState?.form?.name || "Not in a form",
                 content:
-                    !sidePanelContent.form?.name &&
+                    !sidePanelContent.labelState?.form?.name &&
                     "Place this label inside a form container to access form inputs.",
             }),
-            hidden: (_, sidePanelContent) => !sidePanelContent.form?.uid,
+            hidden: (_, sidePanelContent) => !sidePanelContent.labelState?.form?.uid,
         },
         htmlFor: {
             label: {
@@ -54,15 +54,15 @@ export default {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
             hidden: (content, sidePanelContent) => {
-                console.log('htmlFor hidden check - Label should be:', content?.uid || 'NO-UID');
-                console.log('htmlFor hidden check - sidePanelContent keys:', Object.keys(sidePanelContent || {}));
-                console.log('htmlFor hidden check - hasChildInput:', sidePanelContent?.hasChildInput);
-                return !!sidePanelContent?.hasChildInput;
+                console.log('htmlFor hidden check - sidePanelContent:', JSON.stringify(sidePanelContent || {}));
+                console.log('htmlFor hidden check - labelState:', sidePanelContent?.labelState);
+                console.log('htmlFor hidden check - hasChildInput:', sidePanelContent?.labelState?.hasChildInput);
+                return !!sidePanelContent?.labelState?.hasChildInput;
             },
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
                 // If not in a form, only show custom option
-                if (!sidePanelContent?.form?.uid) {
+                if (!sidePanelContent?.labelState?.form?.uid) {
                     return {
                         options: [
                             { label: "None", value: null },
@@ -73,8 +73,8 @@ export default {
 
                 // If in a form but no inputs available yet
                 if (
-                    !sidePanelContent?.form?.inputs ||
-                    sidePanelContent.form.inputs.length === 0
+                    !sidePanelContent?.labelState?.form?.inputs ||
+                    sidePanelContent.labelState.form.inputs.length === 0
                 ) {
                     return {
                         options: [
@@ -86,7 +86,7 @@ export default {
 
                 const options = [
                     { label: "Auto", value: null },
-                    ...sidePanelContent.form.inputs.map((input) => ({
+                    ...sidePanelContent.labelState.form.inputs.map((input) => ({
                         label: input.label || input.name,
                         value: input.name,
                     })),

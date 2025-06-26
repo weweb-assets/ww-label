@@ -46,7 +46,7 @@ export default {
             () => {
                 console.log('ww-label: Emitting complete sidepanel update with hasChildInput:', hasChildInput.value);
                 emit('update:sidepanel-content', {
-                    path: '',
+                    path: 'labelState',
                     value: {
                         form: { 
                             uid: form?.uid, 
