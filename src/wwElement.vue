@@ -43,23 +43,32 @@ export default {
         
         /* wwEditor:start */
         watch(
-            () => [form, hasChildInput.value],
+            () => form,
             () => {
-                console.log('ww-label: Updating sidepanel - form and hasChildInput:', hasChildInput.value);
                 emit('update:sidepanel-content', {
-                    path: '',
-                    value: {
-                        form: { 
-                            uid: form?.uid, 
-                            name: form?.name?.value,
-                            inputs: form?.inputs?.value || []
-                        },
-                        hasChildInput: hasChildInput.value
+                    path: 'form',
+                    value: { 
+                        uid: form?.uid, 
+                        name: form?.name?.value,
+                        inputs: form?.inputs?.value || []
                     },
                     forced: true,
                 });
             },
             { immediate: true, deep: true }
+        );
+        
+        watch(
+            () => hasChildInput.value,
+            (newValue) => {
+                console.log('ww-label: Updating sidepanel hasChildInput:', newValue);
+                emit('update:sidepanel-content', {
+                    path: 'hasChildInput',
+                    value: newValue,
+                    forced: true,
+                });
+            },
+            { immediate: true }
         );
         /* wwEditor:end */
         const computedFor = computed(() => {
