@@ -40,20 +40,33 @@ export default {
                 const hasChildInput = sidePanelContent.labelState?.hasChildInput;
                 const childInputNames = sidePanelContent.labelState?.childInputNames || [];
                 
+                let variant = "warning";
                 let content = "";
+                
                 if (!hasForm) {
                     content = "Place this label inside a form container to access form inputs.";
                 } else if (hasChildInput) {
-                    if (childInputNames.length > 0) {
+                    if (childInputNames.length > 1) {
+                        // Multiple inputs detected - show warning
+                        variant = "warning";
                         const inputsList = childInputNames.join(", ");
-                        content = `Input auto-detected: ${inputsList}`;
+                        content = `Multiple inputs detected: ${inputsList}. Labels should contain only one input for proper accessibility.`;
+                    } else if (childInputNames.length === 1) {
+                        // Single input - all good
+                        variant = "success";
+                        content = `Input auto-detected: ${childInputNames[0]}`;
                     } else {
+                        // Has child input but no name
+                        variant = "success";
                         content = "Input auto-detected inside this label.";
                     }
+                } else {
+                    // In form but no child input
+                    variant = "success";
                 }
                 
                 return {
-                    variant: hasForm ? "success" : "warning",
+                    variant,
                     icon: "tag",
                     title: sidePanelContent.labelState?.form?.name || "Not in a form",
                     content: content,
