@@ -57,9 +57,6 @@ export default {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
             hidden: (content, sidePanelContent) => {
-                console.log('htmlFor hidden check - sidePanelContent:', JSON.stringify(sidePanelContent || {}));
-                console.log('htmlFor hidden check - labelState:', sidePanelContent?.labelState);
-                console.log('htmlFor hidden check - hasChildInput:', sidePanelContent?.labelState?.hasChildInput);
                 return !!sidePanelContent?.labelState?.hasChildInput;
             },
             /* wwEditor:start */

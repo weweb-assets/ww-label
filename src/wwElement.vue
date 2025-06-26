@@ -30,7 +30,6 @@ export default {
         const hasChildInput = ref(false);
         
         provide('_wwLabel:registerInput', () => {
-            console.log('ww-label: Input registering, setting hasChildInput to true');
             hasChildInput.value = true;
         });
         
