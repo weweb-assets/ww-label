@@ -53,6 +53,9 @@ export default {
             section: "settings",
             defaultValue: null,
             bindable: true,
+            propertyHelp: {
+                tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
+            },
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
                 // If not in a form, only show custom option
@@ -72,14 +75,14 @@ export default {
                 ) {
                     return {
                         options: [
-                            { label: "None (children input)", value: null },
+                            { label: "Auto", value: null },
                             { label: "Custom", value: "custom" },
                         ],
                     };
                 }
 
                 const options = [
-                    { label: "None (children input)", value: null },
+                    { label: "Auto", value: null },
                     ...sidePanelContent.form.inputs.map((input) => ({
                         label: input.label || input.name,
                         value: input.name,
