@@ -83,3 +83,29 @@ When inside a form container:
 - The `for` attribute uses input IDs, not field names
 - Form integration provides the ID lookup service
 - Custom IDs bypass the form lookup system
+
+***Examples:***
+
+1. **Label wrapping an input (recommended pattern):**
+<elements>
+{"uid":"label-1","tag":"ww-label","name":"Email Label","props":{"default":{"htmlFor":null}},"styles":{"default":{"display":"block","margin":"0 0 8px 0","color":"#374151","fontSize":"14px","fontWeight":"500"}},"slots":{"children":[{"uid":"label-text-1"},{"uid":"input-1"}]}}
+{"uid":"label-text-1","tag":"ww-text","props":{"default":{"tag":"span","text":{"en":"Email Address"}}}}
+{"uid":"input-1","tag":"ww-input-basic","props":{"default":{"type":"email","fieldName":"email","required":true,"placeholder":"Enter your email"}}}
+</elements>
+
+2. **Label with external input (using field name):**
+<elements>
+{"uid":"form-1","tag":"ww-form-container","name":"Contact Form","slots":{"formContent":[{"uid":"label-2"},{"uid":"input-2"}]}}
+{"uid":"label-2","tag":"ww-label","name":"Name Label","props":{"default":{"htmlFor":"username"}},"styles":{"default":{"display":"block","margin":"0 0 4px 0"}},"slots":{"children":[{"uid":"label-text-2"}]}}
+{"uid":"label-text-2","tag":"ww-text","props":{"default":{"tag":"span","text":{"en":"Username"}}}}
+{"uid":"input-2","tag":"ww-input-basic","props":{"default":{"type":"text","fieldName":"username"}}}
+</elements>
+
+3. **Clickable card label with radio:**
+<elements>
+{"uid":"radio-label","tag":"ww-label","name":"Option Card","styles":{"default":{"display":"flex","padding":"16px","border":"2px solid #e5e7eb","borderRadius":"8px","cursor":"pointer","transition":"all 0.2s"},"_wwHover_default":{"borderColor":"#3b82f6","backgroundColor":"#eff6ff"}},"slots":{"children":[{"uid":"card-content"},{"uid":"radio-1"}]}}
+{"uid":"card-content","tag":"ww-div","styles":{"default":{"flex":"1"}},"slots":{"children":[{"uid":"option-title"},{"uid":"option-desc"}]}}
+{"uid":"option-title","tag":"ww-text","props":{"default":{"tag":"h3","text":{"en":"Premium Plan"}}},"styles":{"default":{"margin":"0 0 4px 0","fontSize":"16px","fontWeight":"600"}}}
+{"uid":"option-desc","tag":"ww-text","props":{"default":{"tag":"p","text":{"en":"Best for growing teams"}}},"styles":{"default":{"margin":"0","color":"#6b7280","fontSize":"14px"}}}
+{"uid":"radio-1","tag":"ww-input-radio","props":{"default":{"value":"premium","appearance":"simple"}}}
+</elements>
