@@ -62,6 +62,10 @@ export default {
         );
         /* wwEditor:end */
         const computedFor = computed(() => {
+            if (hasChildInput.value) {
+                return null;
+            }
+            
             if (!props.content.htmlFor) {
                 return null;
             }

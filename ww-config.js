@@ -56,6 +56,7 @@ export default {
             propertyHelp: {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
+            hidden: (_, sidePanelContent) => sidePanelContent.hasChildInput,
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
                 // If not in a form, only show custom option
