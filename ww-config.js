@@ -67,7 +67,7 @@ export default {
                     content: content,
                 };
             },
-            hidden: (_, sidePanelContent) => !sidePanelContent.labelState?.form?.uid,
+            hidden: false,
         },
         htmlFor: {
             label: {
@@ -82,7 +82,12 @@ export default {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
             hidden: (content, sidePanelContent) => {
-                return !!sidePanelContent?.labelState?.hasChildInput;
+                // Show when not in form or when in form without child input
+                const inForm = !!sidePanelContent?.labelState?.form?.uid;
+                const hasChildInput = !!sidePanelContent?.labelState?.hasChildInput;
+                
+                // Hide only when in form AND has child input
+                return inForm && hasChildInput;
             },
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
@@ -113,7 +118,7 @@ export default {
                     { label: "Auto", value: null },
                     ...sidePanelContent.labelState.form.inputs.map((input) => ({
                         label: input.label || input.name,
-                        value: input.name,
+                        value: input.componentUid,  // Use component UID instead of name
                     })),
                     { label: "Custom", value: "custom" },
                 ];

@@ -63,7 +63,7 @@ export default {
         if (props.content.htmlFor && props.content.htmlFor !== "custom") {
           const availableInputs = form?.inputs?.value || [];
           const inputExists = availableInputs.some(
-            (input) => input.name === props.content.htmlFor,
+            (input) => input.componentUid === props.content.htmlFor,
           );
 
           if (!inputExists) {
@@ -92,7 +92,7 @@ export default {
 
       if (form?.inputs?.value) {
         const input = form.inputs.value.find(
-          (input) => input.name === props.content.htmlFor,
+          (input) => input.componentUid === props.content.htmlFor,
         );
         if (input) {
           return input.id;
