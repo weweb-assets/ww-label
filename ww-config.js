@@ -36,16 +36,17 @@ export default {
             type: "InfoBox",
             section: "settings",
             options: (_, sidePanelContent) => {
-                const hasForm = sidePanelContent.labelState?.form?.name;
+                const hasForm = !!sidePanelContent.labelState?.form?.uid;
+                const formName = sidePanelContent.labelState?.form?.name;
                 const hasChildInput = sidePanelContent.labelState?.hasChildInput;
                 const childInputNames = sidePanelContent.labelState?.childInputNames || [];
                 
                 let variant = "warning";
                 let content = "";
+                let title = "Not in a form";
                 
-                if (!hasForm) {
-                    content = "Place this label inside a form container to access form inputs.";
-                } else if (hasChildInput) {
+                if (hasChildInput) {
+                    // If we have a child input, we don't need to be in a form
                     if (childInputNames.length > 1) {
                         // Multiple inputs detected - show warning
                         variant = "warning";
@@ -55,15 +56,20 @@ export default {
                         variant = "success";
                         content = "Input auto-detected inside this label.";
                     }
+                    title = hasForm && formName ? formName : "Label with input";
+                } else if (!hasForm) {
+                    // Not in form and no child input
+                    content = "Place this label inside a form container to access form inputs.";
                 } else {
                     // In form but no child input
                     variant = "success";
+                    title = formName || "In form";
                 }
                 
                 return {
                     variant,
                     icon: "tag",
-                    title: sidePanelContent.labelState?.form?.name || "Not in a form",
+                    title,
                     content: content,
                 };
             },
@@ -82,12 +88,9 @@ export default {
                 tooltip: "Associates this label with a specific form input. 'Auto' will automatically associate with any input inside this label."
             },
             hidden: (content, sidePanelContent) => {
-                // Show when not in form or when in form without child input
-                const inForm = !!sidePanelContent?.labelState?.form?.uid;
+                // Hide only when has child input (regardless of form)
                 const hasChildInput = !!sidePanelContent?.labelState?.hasChildInput;
-                
-                // Hide only when in form AND has child input
-                return inForm && hasChildInput;
+                return hasChildInput;
             },
             /* wwEditor:start */
             options: (content, sidePanelContent) => {
