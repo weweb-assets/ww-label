@@ -30,6 +30,14 @@ export default {
   emits: ["update:content", "update:sidepanel-content"],
   setup(props, { emit }) {
     const form = inject("_wwForm:info", null);
+    
+    console.log('[ww-label] Debug - Form injected:', {
+      form,
+      hasForm: !!form,
+      formUid: form?.uid,
+      formName: form?.name?.value,
+      formInputs: form?.inputs?.value,
+    });
 
     const { hasChildInput, childInputs } = useChildLabelProvider();
 
@@ -37,6 +45,15 @@ export default {
     watch(
       () => [form, hasChildInput.value, childInputs.value],
       () => {
+        console.log('[ww-label] Debug - Watch triggered:', {
+          form,
+          hasForm: !!form,
+          formUid: form?.uid,
+          formName: form?.name?.value,
+          formInputs: form?.inputs?.value,
+          hasChildInput: hasChildInput.value,
+          childInputsSize: childInputs.value.size,
+        });
         // Get all input names from the Map
         const childInputNames = [];
         for (const [uid, nameRef] of childInputs.value.entries()) {
